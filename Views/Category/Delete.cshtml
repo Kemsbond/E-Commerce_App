@@ -1,0 +1,42 @@
+﻿@model E_Ticaret.Entity.Category
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<hr />
+<div class="container">
+    <h3 style="color:#ff0000">Silmek istediğine emin misin?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt style="font-weight:500;margin-bottom:10px">
+                Kategori Adı
+            </dt>
+
+            <dd style="margin-bottom:20px">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt style="font-weight:500;margin-bottom:10px">
+                Kategori Açıklaması
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Sil" class="btn m-t-10 m-r-5 btn-rounded btn-outline-danger" /> |
+                <a href="/Category/Index" class="btn m-t-10 m-r-5 btn-rounded btn-outline-primary">Listeye Dön</a>
+            </div>
+        }
+    </div>
+
+</div>

@@ -1,0 +1,75 @@
+﻿@using E_Ticaret.Models
+@model LoginModel
+
+
+@{
+    ViewBag.Title = "Login";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+    <center>
+        <div class="table table-bordered mt-5 pt-0" style="border:groove;background-color:white;border-width:0.01px;border-left-color:#808080;color:#808080;width:800px;height:400px" >
+            
+            <div class="container">
+                <h3 style="color:#ff6000;margin-top:10px">
+                    Üye Girişi
+                </h3>
+                <hr />
+                <br />
+                <br />
+                <br />
+                <br />
+
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal pt-0 mt-0" >
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group" style="margin-top:-50px">
+                            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2",@style="margin-bottom:10px" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @style = "width:180px;padding-right:10px", @placeholder = "Kullanıcı Adı" } })
+                                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2",@style="margin-bottom:10px" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                <br />
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                    @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label col-md-2", @style = "margin-left:-30px" })
+                    @Html.CheckBoxFor(model => model.RememberMe, new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="col-md-10">
+                        @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10 mb-5">
+                                <input type="submit" value="Giriş Yap" style="width:200px;background-color:#ff6000;color:white;font-weight:500" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+    </center>
+
+        <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

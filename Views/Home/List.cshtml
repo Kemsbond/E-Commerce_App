@@ -1,0 +1,42 @@
+﻿@using E_Ticaret.Models
+@model  IEnumerable<ProductModel>
+
+
+@{
+    ViewBag.Title = "List";
+}
+
+
+
+<hr />
+<div class="container pb-4 " style="margin-top:-15px">
+    <div class="row">
+        <div class="col-md-3">
+            <a id="ctgr" href="/home/list"><h5 style="text-align:center;color:black">Kategoriler</h5></a>
+            <hr />
+            @Html.Action("GetCategories", "Home")
+        </div>
+        <div class="col-md-9">
+
+            @if (Model.Count() != 0)
+            {
+                <i class="fa fa-check circle mb-3 ml-1"> <strong> @Model.Count() adet </strong> ürün bulundu.</i>
+
+
+            }
+            else
+            {
+                <i class="fa fa-exclamation circle mb-0 ml-1" style="color:#a90808"> Ürün bulunamadı.</i>
+                <hr />
+            }
+
+            @Html.Partial("_DetailProductList", Model)
+
+
+        </div>
+    </div>
+
+
+
+</div>
+

@@ -1,0 +1,50 @@
+﻿@using E_Ticaret.Entity
+@model Comments
+
+@{
+    Layout = null;
+}
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    using (Html.BeginForm("AddComment", "Home"))
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Head, "Yorum Başlığı", htmlAttributes: new { @class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Head, new { htmlAttributes = new { @class = "form-control",@style ="width:1080px" } })
+                @Html.ValidationMessageFor(model => model.Head, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, "Yorum İçeriği", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control",@style ="width:1080px" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Yorum yap" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+    }
+
+}
+else
+{
+    <a href="/Account/Login">Yorum Yapmak İçin Giriş Yapmalısın.</a>
+}

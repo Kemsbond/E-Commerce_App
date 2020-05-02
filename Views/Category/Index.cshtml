@@ -1,0 +1,101 @@
+﻿@using PagedList.Mvc
+@using PagedList
+@model  PagedList.IPagedList<E_Ticaret.Entity.Category>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+
+        </div>
+        <div class="d-flex justify-content-end align-items-center">
+            <a class="btn btn-success d-none d-lg-block m-l-15" href="/Category/Create">Yeni Kategori Oluştur</a>
+            <a class="btn btn-info d-none d-lg-block m-l-15" style="color:white">Toplam Kategori ( @Model.Count() )</a>
+        </div>
+    </div>
+
+    <center>
+        @using (Html.BeginForm("Index", "Category", FormMethod.Get))
+        {
+            <form class="form-inline my-2 my-lg-0">
+                @Html.TextBox("key", null, new { @class = "form-control", @placeholder = "Sipariş Ara ", @style = "margin-top:-15px;width:900px" })
+            </form>
+        }
+    </center>
+    <hr />
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Yearly Sales -->
+    <!-- ============================================================== -->
+
+    <div class="row">
+        <!-- column -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div>
+                            <h5 class="card-title">KATEGORİ TABLOSU</h5>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-0">
+                        <div class="col " style="left:1500px">
+                            <div class="block-27">
+                                <ul>
+                                    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style="margin-left:100px">#</th>
+                                <th>AD</th>
+                                <th>AÇIKLAMA</th>
+                                <th width="14%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td class="txt-oflo">@item.Name</td>
+                                    <td class="txt-oflo">@item.Description</td>
+                                    <td style="margin-right:100px">
+                                        <a href="/Category/Edit/@item.Id" class="btn m-t-10 m-r-5 btn-rounded btn-outline-success">Güncelle</a>
+                                        <a href="/Category/Delete/@item.Id" class="btn m-t-10 m-r-5 btn-rounded btn-outline-danger">Sil</a>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>

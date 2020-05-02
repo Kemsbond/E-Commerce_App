@@ -1,0 +1,37 @@
+﻿
+
+
+    <div>
+        @if (Request.IsAuthenticated)
+        {
+            if (User.IsInRole("admin"))
+            {
+
+                <a class="btn btn-dark" id="login" href="/Account" style="color:white;width:110px;padding-left:0px;margin-left:5px;margin-top:15px"><i class="far fa-user"></i> Admin</a>
+
+            }
+            else
+            {
+
+                <a class="btn btn-dark" id="login" href="/Account" style="color:white;width:110px;padding-left:0px;margin-left:5px;margin-top:15px"><i class="far fa-user"></i> @User.Identity.Name</a>
+
+            }
+
+
+            <a style="color:white;width:110px;padding-left:0px;margin-left:0px;margin-top:15px" id="login" class="btn btn-danger" href="/Account/Logout"><i class="fas fa-sign-in-alt"></i> Çıkış Yap</a>
+
+
+
+
+        }
+        else
+        {
+
+            <a style="color:white;width:110px;padding-left:0px;margin-left:5px;margin-top:15px" id="login" class="btn btn-success" href="/Account/Login"><i class="fas fa-sign-in-alt"></i> Giriş Yap</a>
+
+
+            <a style="color:white;width:110px;padding-left:0px;margin-left:0px;margin-top:15px" id="login" class="btn btn-primary" href="/Account/Register"><i class="fas fa-registered"></i> Kayıt Ol</a>
+
+
+        }
+    </div>

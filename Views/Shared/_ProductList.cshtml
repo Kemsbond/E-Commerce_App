@@ -1,0 +1,43 @@
+﻿@using E_Ticaret.Models;
+@model  IEnumerable<ProductModel>
+
+<div class="row">
+
+
+    @foreach (var urun in Model)
+    {
+        if (urun.Description.Length > 30)
+        {
+            urun.Description = urun.Description.Substring(0, 30) + "...";
+        }
+        <div class="col-md-2 mb-3  " >
+            <div class="card" id="kart">
+                <a href="/Home/Details/@urun.Id"><img class="card-img-top" id="zom" src="/Upload/@urun.Image" height="220" width="220" alt="@urun.Name"></a>
+                <div class="card-body">
+                    <h4 class="card-title pt-0">
+                        <a href="/Home/Details/@urun.Id" style="">
+                            @if (urun.Description.Contains(urun.Name))
+                            {
+                                @urun.Description
+                            }
+                            else
+                            {
+                                @(urun.Name + " " + urun.Description)
+                            }
+                        </a>
+                    </h4>
+                    <p class="card-text pt-4 description">@urun.Name</p>
+                </div>
+
+                <a id="anaprice" href="/Home/Details/@urun.Id" style="padding-bottom:25px;margin-top:20px;margin-bottom:10px;height:25px;width:140px;margin-left:10px;text-align:right">
+                    <p> @urun.Price.ToString("c")</p>
+                </a>
+
+
+
+            </div>
+        </div>
+    }
+
+
+</div>

@@ -1,0 +1,115 @@
+﻿@using E_Ticaret.Models
+@model Cart
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container pb-5">
+    <div class="row">
+        <div class="col-md-12">
+
+            <h2>Alışveriş Sepeti</h2>
+            <hr />
+            @if (User.Identity.IsAuthenticated)
+            {
+
+
+                if (Model.Cartlines.Count > 0)
+                {
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="5%">Ürün</th>
+                                <th width="50%">Ürün Adı</th>
+                                <th width="10%">Fiyat</th>
+                                <th width="10%">Toplam</th>
+                                <th width="10%">Adet</th>
+                                <th width="10%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Cartlines)
+                            {
+
+                                <tr>
+                                    <td><a href="/Home/Details/@item.Product.Id"><img src="/Upload/@item.Product.Image" width="50" /></a></td>
+
+                                    <td><a href="/Home/Details/@item.Product.Id">@item.Product.Name</a></td>
+                                    <td>@item.Product.Price.ToString("c")</td>
+                                    <td><b>@((item.Product.Price * item.Quantity).ToString("c"))</b></td>
+                                    <td>
+
+                                        <div class="row pl-2 pt-0">
+
+
+                                            @using (Html.BeginForm("AddToCart", "Cart"))
+                                            {
+                                                @Html.Hidden("Id", item.Product.Id)
+
+                                                <button style="width:30px" type="submit" class="btn btn-success btn-sm">
+                                                    +
+                                                </button>
+                                            }&nbsp;<b>(@item.Quantity)</b>&nbsp;
+                                            @using (Html.BeginForm("RemoveFromOneCart", "Cart"))
+                                            {
+                                                @Html.Hidden("Id", item.Product.Id)
+                                                <button style="width:30px" type="submit" class="btn btn-danger btn-sm">
+                                                    -
+                                                </button>
+                                            }
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                                        {
+                                            @Html.Hidden("Id", item.Product.Id)
+
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                                Sil
+                                            </button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5"></td>
+                                <td><b>@Model.Total().ToString("c")</b></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="text-center">
+                        <a href="/Home/List" class="btn btn-primary">Alışverişe Devam Et</a>
+                        <a href="/Cart/Checkout" class="btn btn-success">Alışverişi Tamamla</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                        @User.Identity.Name sepetin şuan boş.
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-warning" role="alert">
+                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                    @User.Identity.Name Alışveriş yapmak için giriş yapmalısın.
+                </div>
+            }
+
+
+
+
+        </div>
+    </div>
+</div>
+

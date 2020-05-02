@@ -1,0 +1,98 @@
+﻿@model E_Ticaret.Models.OrderDetailsModel
+
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<div class="container " style="margin-top:-45px">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>| @Model.OrderNumber | Sipariş Detayları</h2>
+            <hr />
+
+            <dl class="row">
+
+                <dt class="col-sm-3">Sipariş Durumu</dt>
+                <dd class="col-sm-9">
+                    @if (Model.OrderState.ToString() == "Bekleniyor")
+                    {
+                        <td class="text-center"><span class="badge badge-pill badge-info">Onay bekleniyor</span></td>
+                    }
+                    else if (Model.OrderState == E_Ticaret.Entity.EnumOrderState.Tamamlandı)
+                    {
+                        <td class="text-center"><span class="badge badge-pill badge-success">Teslim edildi</span></td>
+                    }
+                    else
+                    {
+                        <td class="text-center"><span class="badge badge-pill badge-warning">Kargoda</span></td>
+                    }
+
+                </dd>
+
+                <dt class="col-sm-3 mt-1">Sipariş Id</dt>
+                <dd class="col-sm-9 mt-1">@Model.OrderId</dd>
+
+                <dt class="col-sm-3 mt-1">Sipariş Numarası</dt>
+                <dd class="col-sm-9 mt-1">@Model.OrderNumber</dd>
+
+                <dt class="col-sm-3 mt-1">Toplam</dt>
+                <dd class="col-sm-9 mt-1"><b>@Model.Total.ToString("c") </b></dd>
+
+                <dt class="col-sm-3 mt-1">Sipariş Tarihi</dt>
+                <dd class="col-sm-9 mt-1">@Model.Orderdate</dd>
+
+
+
+                <dt class="col-sm-3" style="margin-top:-40px"><br /><br />Teslim Adresi</dt>
+                <dd class="col-sm-9 mt-2">
+                    @Model.AdresBasligi
+                    <hr />
+                    @Model.Adres
+                    <br />
+                    @Model.Sehir - @Model.Sehir - @Model.Semt
+                    <br />
+                    @Model.PostaKodu
+                </dd>
+
+                <dt class="col-sm-3 mt-3">Ürünler</dt>
+                <dd class="col-sm-9">
+
+                    <table class="table table-bordered mt-3">
+
+                        <thead>
+                            <tr>
+                                <th width="100">Ürün</th>
+                                <th>Ürün Adı</th>
+                                <th>Adet</th>
+                                <th>Fiyat</th>
+                                <th width="100"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderLines)
+                            {
+                                <tr>
+                                    <td><img src="/Upload/@item.Image" width="70" height="80" /></td>
+                                    <td>@item.ProdutName</td>
+                                    <td>@item.Quantity</td>
+                                    <td><b>@item.Price.ToString("c")</b></td>
+                                    <td>
+                                        <a href="/Home/Details/@item.ProductId" class="btn btn-primary btn-sm" target="_blank">Ürün Detayı</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+
+                </dd>
+            </dl>
+
+        </div>
+    </div>
+</div>
+

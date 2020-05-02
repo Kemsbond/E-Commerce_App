@@ -1,0 +1,8 @@
+﻿@using E_Ticaret.Models
+@model Cart
+
+
+
+    <a style="width:70px;padding-left:10px;margin-left:10px;float:left;margin-top:15px" id="fav" class="btn btn-default" href="/Favorites"> ♥ </a>
+<a style="color:white;width:70px;padding-left:10px;background-color:darkorange;margin-left:10px;float:left;margin-top:15px" id="login" class="btn btn-default" href="/Cart/Index"><i class="fas fa-shopping-cart"></i> @(Model.Cartlines.Count())</a>
+

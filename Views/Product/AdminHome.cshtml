@@ -1,0 +1,173 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@using E_Ticaret.Controllers;
+@using E_Ticaret.Entity;
+@using E_Ticaret.Identity;
+
+@model PagedList.IPagedList<E_Ticaret.Models.AdminOrderModel>
+@{
+    ViewBag.Title = "AdminHome";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@{
+    var db = new IdentityDbContext();
+    var users = db.Users.ToList();
+
+
+}
+
+
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+
+        </div>
+        <div class="d-flex justify-content-end align-items-center">
+            <a class="btn btn-info d-none d-lg-block m-l-15" style="color:white;margin-left:50px">Toplam Satış ( @Model.Count() )</a>
+        </div>
+
+    </div>
+
+    <center>
+        @using (Html.BeginForm("AdminHome", "Product", FormMethod.Get))
+        {
+            <form class="form-inline my-2 my-lg-0">
+                @Html.TextBox("key", null, new { @class = "form-control", @placeholder = "Sipariş Ara ", @style = "margin-top:-15px;width:900px" })
+            </form>
+        }
+    </center>
+    <hr />
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Yearly Sales -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- News -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <!-- column -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div>
+                            <h5 class="card-title">SATIŞ LİSTESİ</h5>
+                            <h6 class="card-subtitle">Son Satışlar</h6>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-0">
+                        <div class="col " style="left:1550px">
+                            <div class="block-27">
+                                <ul>
+                                    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Kullanıcı Adı</th>
+                                <th>Satın Alma Tarihi</th>
+                                <th>Sipariş Numarası</th>
+                                <th>Toplam Ödeme</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td width="2%">@item.Id</td>
+                                    <td class="txt-oflo">@item.UserName</td>
+                                    <td class="txt-oflo">@item.Orderdate</td>
+                                    <td class="txt-oflo">@item.OrderNumber</td>
+                                    @if (item.OrderState == E_Ticaret.Entity.EnumOrderState.Bekleniyor || item.OrderState == E_Ticaret.Entity.EnumOrderState.Kargoda)
+                                    {
+                                        <td class="txt-success " style="color:red !important">@item.Total.ToString("c")</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="txt-success " style="color:#36bea6 !important">@item.Total.ToString("c")</td>
+                                    }
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- To do chat and message -->
+    <!-- ============================================================== -->
+    <div class="row">
+        @*<div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Kullanıcı Listesi (@users.Count())</h4>
+                </div>
+                <ul class="feeds p-b-20">
+                    @foreach (var item in users)
+                    {
+                    <li>
+                        <a class="btn btn-info d-none d-lg-block m-l-15 btn-sm" style="color:white"><h5>@item.UserName</h5></a>
+                    </li>
+                       
+                    }
+                </ul>
+            </div>
+        </div>*@
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Kullanıcı Listesi</h5>
+                    <div class="message-box">
+                        <div class="message-widget message-scroll">
+                            @foreach (var item in users)
+                            {
+
+                            <a href="javascript:void(0)">
+                                @if (item.Image != null)
+                                {
+                                    <img class="rounded-circle " width="80" src="~/Upload/Users/@item.Image" alt="Card image cap">
+                                }
+                                else
+                                {
+                                    <img class="rounded-circle " width="80" src="~/Upload/Users/pp.jpg" alt="Card image cap">
+                                }
+                                <div class="mail-contnet">
+                                    <h5  style="margin-left:10px">@item.UserName</h5> <span  style="margin-left:10px" class="mail-desc">@item.Email</span> <span  style="margin-left:10px" class="time">@(item.Name.ToUpper()+" " + item.Surname.ToUpper())</span>
+                                </div>
+                            </a>
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

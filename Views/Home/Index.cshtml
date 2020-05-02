@@ -1,0 +1,104 @@
+﻿@using E_Ticaret.Models
+@model  IEnumerable<ProductModel>
+
+
+@{
+    ViewBag.Title = "Index";
+    int i = 0;
+    int j = 0;
+}
+<hr />
+<div style="margin-top:30px">
+    <div id="carouselExampleIndicators" class="carousel slide carousel mt-0 mb-2" style="margin-top:30px" data-ride="carousel">
+        <ol class="carousel-indicators pb-1">
+            @foreach (var item in Model)
+            {
+                if (item.Image != "place.jpg")
+                {
+
+                    if (j == 0)
+                    {
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        j++;
+                    }
+                    else
+                    {
+                        <li data-target="#carouselExampleIndicators" data-slide-to="j"></li>
+                        j++;
+                    }
+
+                }
+            }
+        </ol>
+
+        <div class="carousel-inner">
+
+            @foreach (var item in Model)
+            {
+                if (item.Image != "place.jpg")
+                {
+                    if (i == 0)
+                    {
+                        <div class="carousel-item active">
+                            <center>
+                                <a href="/Home/Details/@item.Id">  <img class="d-block " src="~/Upload/@item.Image" alt="First slide" height="300"></a>
+                                <div class="table table-bordered mt-1 mb-4 pt-1" style="background-color:#e53f01">
+                                    <a style="color:white" href="/Home/Details/@item.Id"><h4>@item.Name</h4></a>
+                                    <p style="margin-top:10px;color:white;margin-top:10px;margin-bottom:5px">@item.Description</p>
+                                    <h6 style="color:white;margin-bottom:30px">@item.Price.ToString("c")</h6>
+                                </div>
+
+                            </center>
+
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="carousel-item ">
+                            <center>
+                                <a href="/Home/Details/@item.Id">  <img class="d-block " src="~/Upload/@item.Image" alt="First slide" height="300"></a>
+                                <div class="table table-bordered mt-1 mb-4 pt-1" style="background-color:#e53f01">
+                                    <a style="color:white" href="/Home/Details/@item.Id"><h4>@item.Name</h4></a>
+                                    <p style="margin-top:10px;color:white;margin-top:10px;margin-bottom:5px">@item.Description</p>
+                                    <h6 style="color:white;margin-bottom:30px">@item.Price.ToString("c")</h6>
+                                </div>
+
+                            </center>
+
+                        </div>
+                    }
+                    i++;
+                }
+
+            }
+
+
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+</div>
+
+@Html.Action("HotDeals", "Home")
+
+
+<div class="container pb-5 " style="margin-top:-80px">
+    <br />
+    @Html.Partial("_ProductList", Model)
+</div>
+
+
+
+
+
+
+
+

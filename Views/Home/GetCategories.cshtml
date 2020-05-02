@@ -1,0 +1,37 @@
+﻿@model IEnumerable<E_Ticaret.Entity.Category>
+
+
+@{
+    var selectedCategory = Url.RequestContext.RouteData.Values["id"];
+}
+
+
+
+
+    @foreach (var item in Model)
+    {
+        if (selectedCategory != null)
+        {
+            if (item.Id == int.Parse(selectedCategory.ToString()))
+            {
+               <a href="/Home/List/@item.Id" id="ctgr"><button type="button"  id="ctg" class="list-group-item list-group-item-action list-group-item active">@item.Name</button></a> 
+
+            }
+            else
+            {
+                <a href="/Home/List/@item.Id" id="ctgr"><button type="button" id="ctg" class="list-group-item list-group-item-action list-group-item">@item.Name</button></a>
+
+            }
+        }
+        else
+        {
+            <a href="/Home/List/@item.Id" id="ctgr"><button type="button" id="ctg" class="list-group-item list-group-item-action list-group-item">@item.Name</button></a>
+        }
+
+
+
+    }
+
+
+
+

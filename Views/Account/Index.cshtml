@@ -1,0 +1,62 @@
+﻿@model IEnumerable<E_Ticaret.Models.UserOrderModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container">
+        <center>
+            <div class="rounded-circle" style="width: 10rem;float:left;height:6rem">
+                <img class="rounded-circle "  width="80" src="~/Upload/Users/@ViewBag.user" alt="Card image cap">
+            </div>
+        </center>
+        <div class="row">
+
+
+
+        <div class="col-md-12">
+            <h2>Siparişlerim</h2>
+            <hr />
+            <table class="table table-striped table-bordered ">
+                <thead>
+                    <tr>
+                        <th>Sipariş Numarası</th>
+                        <th>Sipariş Tarihi</th>
+                        <th>Sipariş Durumu</th>
+                        <th>Ödenen Tutar</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.OrderNumber</td>
+                            <td>@item.Orderdate.ToShortDateString()</td>
+                            @if (item.OrderState.ToString() == "Bekleniyor")
+                            {
+                                <td class="text-center"><span class="badge badge-pill badge-info">Onay bekleniyor</span></td>
+                            }
+                            else if (item.OrderState == E_Ticaret.Entity.EnumOrderState.Tamamlandı)
+                            {
+                                <td class="text-center"><span class="badge badge-pill badge-success">Teslim edildi</span></td>
+                            }
+                            else
+                            {
+                                <td class="text-center"><span class="badge badge-pill badge-warning">Kargoda</span></td>
+                            }
+                            <td class="txt-success " style="color:red !important">@item.Total.ToString("c")</td>
+                            <td>
+                                @Html.ActionLink("Sipariş Detayı", "Details", new { id = item.Id }, new { @class = "btn btn-primary" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+        </div>
+        </div>
+    </div>
+

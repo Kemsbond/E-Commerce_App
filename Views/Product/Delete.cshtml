@@ -1,0 +1,84 @@
+﻿@model E_Ticaret.Entity.Product
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<hr />
+<div class="container" style="color:black">
+
+    <h3 style="color:red">Silmek istediğine emin misin?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+
+            <dt>
+                Fotoğraf
+            </dt>
+
+            <dd>
+                @if (Model.Image != null)
+                {
+                    <img src="/Upload/@Model.Image" width="160" height="175" />
+                }
+                else
+                {
+                    <img src="~/Upload/place.jpg" />
+                }
+            </dd>
+
+            <dt>
+                Ürün Adı
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                Kategori Adı
+            </dt>
+
+            <dd>
+                @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+
+            </dd>
+
+            <dt>
+                Açıklaması
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                Fiyatı
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Price) TL
+            </dd>
+
+            <dt>
+                Stok
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Stock)
+            </dd>
+
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Sil" class="btn m-t-10 m-r-5 btn-rounded btn-outline-danger" /> |
+                <a href="/Product/Index" class="btn m-t-10 m-r-5 btn-rounded btn-outline-primary">Listeye Dön</a>
+            </div>
+        }
+    </div>
+</div>

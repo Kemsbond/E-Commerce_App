@@ -1,0 +1,65 @@
+﻿
+    <div class="jumbotron jumbotron-fluid mb-4 pb-5 pt-1" style="background-color:white">
+
+        
+        <div class="row">
+
+            @foreach (var urun in Model)
+            {
+                <div class="col-md-2 mb-3 ml-5 ">
+                    <div class="card" id="kart" style="border:none">
+                        <center><a href="/Home/Details/@urun.Id"><img class="card-img-top ml-3" id="zom" src="/Upload/@urun.Image" style="height:330px;width:200px" alt="@urun.Name"></a></center>
+                        <div class="card-body">
+                            <h4 class="card-title pt-0 ">
+                                <a href="/Home/Details/@urun.Id" style="">
+                                    @if (urun.Description.Contains(urun.Name))
+                                    {
+
+                                        @urun.Description.Substring(0, 80);
+                                    }
+                                    else
+                                    {
+                                        if (urun.Description.Length > 70)
+                                        {
+                                            @(urun.Name + " " + @urun.Description.Substring(0, 70))
+                                        }
+                                        else
+                                        {
+                                            @(urun.Name + " " + @urun.Description)
+                                        }
+                                    }
+                                </a>
+                            </h4>
+                        </div>
+                        @{
+                            float nprice;
+                            double ind;
+                            if (urun.Price > 10000)
+                            {
+                                ind = 15;
+                                nprice = Convert.ToSingle(urun.Price * 0.85);
+
+                            }
+                            else
+                            {
+                                ind = 10;
+                                nprice = Convert.ToSingle(urun.Price * 0.90);
+                            }
+
+                        }
+                        <a id="anaprice" href="/Home/Details/@urun.Id" style="padding-bottom:25px;margin-top:10px;margin-bottom:10px;height:25px;margin-left:22px">
+                            <p> <strong style="text-decoration:line-through;font-size:15px">@urun.Price.ToString("c")</strong> &nbsp; <b style="float:right;margin-right:10px;font-size:18px"><b style="color:forestgreen;font-size:20px;font-weight:500">%@ind /</b> @nprice.ToString("c")</b></p>
+                        </a>
+
+
+
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </div>
+
+
+

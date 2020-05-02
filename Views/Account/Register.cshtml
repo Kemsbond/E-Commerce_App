@@ -1,0 +1,124 @@
+﻿@using E_Ticaret.Models
+@model RegisterModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<hr />
+    <center>
+        <div class="table table-bordered mt-5 pt-0" style="border:groove;background-color:white;border-width:0.01px;border-left-color:#808080;color:#808080;width:800px;height:1000px" >
+            <div class="container">
+                <h3 style="color:#ff6000;margin-top:10px">
+                    Kayıt Ol
+                </h3>
+                <hr />
+                <br />
+                <br />
+                <br />
+                <br />
+
+
+                @using (Html.BeginForm("Register","Account",FormMethod.Post,new {@enctype ="multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                @*Resimm işlem*@
+
+                <div class="form-group" style="margin-top:-60px;margin-bottom:80px">
+                    @Html.LabelFor(model => model.UserImage, "Fotoğraf"+Environment.NewLine+"(İsteğe Bağlı)", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @*@Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })*@
+                        <input type="file" id="files" name="file" />
+                    </div>
+                </div>
+
+
+                <script>
+                    $("#files").fileinput();
+                </script>
+                @*Resimm işlem*@
+
+
+                <div class="form-group" style="margin-top:-60px">
+                    <i class="far fa-user" style="padding-left:10px"></i>
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @style = "width:180px", @placeholder = "Ad" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <i class="far fa-user" style="padding-left:10px"></i>
+                    @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control", @style = "width:180px", @placeholder = "Soyad" } })
+                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <i class="far fa-user" style="padding-left:10px"></i>
+                    @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @style = "width:180px", @placeholder = "Kullanıcı Adı" } })
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <i class="fas fa-at" style="padding-left:10px"></i>
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @style = "width:180px", @placeholder = "örnek@hotmail.com" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <i class="fas fa-unlock" style="padding-left:10px"></i>
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        <br />
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <i class="fas fa-unlock" style="padding-left:10px"></i>
+                    @Html.LabelFor(model => model.RePassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(model => model.RePassword, new { htmlAttributes = new { @class = "form-control" } })
+                        <br />
+                        @Html.ValidationMessageFor(model => model.RePassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Kayıt Ol" style="width:200px;background-color:#ff6000;color:white;font-weight:500" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+                }
+
+            </div>
+        </div>
+    </center>
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

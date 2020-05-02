@@ -1,0 +1,40 @@
+﻿@using E_Ticaret.Models
+@model Favorites
+@{
+    ViewBag.Title = "Favorites";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container">
+        <h4>FAVORİLERİM</h4>
+        @foreach (var item in Model.Favori)
+        {
+            <div class="list-group">
+                <a href="/Home/Details/@item.Product.Id" class="list-group-item list-group-item-action flex-column align-items-start ">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                            <img src="~/Upload/@item.Product.Image" width="100" />
+                            <b>@item.Product.Name</b>
+                        </h5>
+                        <small class="text-muted">@item.AddDate Tarihinde Eklendi</small>
+                    </div>
+                    <p class="mb-1">@item.Product.Description</p>
+                    <small class="text-info" style="font-size:20px">@item.Product.Price.ToString("c")</small>
+                    <center>
+                        @using (Html.BeginForm("RemoveFromFavorites", "Favorites"))
+                        {
+                            @Html.Hidden("Id", item.Product.Id)
+
+                            <button type="submit" style="border-radius: 50px 50px 50px 50px;" class="btn btn-danger">
+                                X
+                            </button>
+                        }
+                    </center>
+                </a>
+
+            </div>
+        }
+
+
+    </div>
+
